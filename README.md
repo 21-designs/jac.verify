@@ -62,7 +62,6 @@ public class Example
   @MaxSize(16)
   @NotNull
   String password = "unknown";
-  
 }
 ```
 

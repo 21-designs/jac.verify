@@ -48,6 +48,57 @@
 <li><code>@MinSize(minSize)</code></li>
 </ul>
 
+<h3>
+<a id="example" class="anchor" href="#example" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Example</h3>
+
+<div class="highlight highlight-source-java"><pre><span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-en">Example</span>
+{
+  <span class="pl-c">// Limits the range</span>
+  <span class="pl-k">@Interval</span>( <span class="pl-c1">min</span> <span class="pl-k">=</span> <span class="pl-c1">0</span>, <span class="pl-c1">max</span> <span class="pl-k">=</span> <span class="pl-c1">50</span> )
+  <span class="pl-k">int</span> arg1 <span class="pl-k">=</span> <span class="pl-c1">10</span>;
+
+  <span class="pl-c">// Limits the maximum value</span>
+  <span class="pl-k">@Max</span>(<span class="pl-c1">50</span>)
+  <span class="pl-k">int</span> arg2 <span class="pl-k">=</span> <span class="pl-c1">10</span>;
+
+  <span class="pl-c">// Limits the minimum value</span>
+  <span class="pl-k">@Min</span>(<span class="pl-c1">0</span>)
+  <span class="pl-k">int</span> arg3 <span class="pl-k">=</span> <span class="pl-c1">10</span>;
+
+  <span class="pl-c">// Asserts that the value is not null</span>
+  <span class="pl-k">@NotNull</span>
+  <span class="pl-smi">Object</span> arg4 <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-smi">Object</span>();
+
+  <span class="pl-c">// Limits different types of accumulations</span>
+  <span class="pl-k">@MaxSize</span>(<span class="pl-c1">3</span>)
+  <span class="pl-k">Integer</span>[] array1 <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-smi">Integer</span>[] {<span class="pl-c1">1</span>,<span class="pl-c1">2</span>};
+  <span class="pl-k">@MaxSize</span>(<span class="pl-c1">3</span>)
+  <span class="pl-k">List&lt;<span class="pl-smi">Integer</span>&gt;</span> list1 <span class="pl-k">=</span> Arrays.<span class="pl-en">asList</span>( <span class="pl-v">array</span> );;
+  <span class="pl-k">@MaxSize</span>(<span class="pl-c1">3</span>)
+  <span class="pl-k">Set&lt;<span class="pl-smi">Integer</span>&gt;</span> set1 <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-k">HashSet&lt;<span class="pl-smi">Integer</span>&gt;</span>(list);;
+  <span class="pl-k">@MaxSize</span>(<span class="pl-c1">3</span>)
+  <span class="pl-k">Queue&lt;<span class="pl-smi">Integer</span>&gt;</span> queue1 <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-k">LinkedList&lt;<span class="pl-smi">Integer</span>&gt;</span>(list);
+  <span class="pl-k">@MaxSize</span>(<span class="pl-c1">3</span>)
+  <span class="pl-smi">String</span> string1 <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">"</span>12<span class="pl-pds">"</span></span>;
+
+  <span class="pl-c">// Limits different types of accumulations</span>
+  <span class="pl-k">@MinSize</span>(<span class="pl-c1">3</span>)
+  <span class="pl-k">Integer</span>[] array2 <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-smi">Integer</span>[] {<span class="pl-c1">1</span>,<span class="pl-c1">2</span>,<span class="pl-c1">3</span>,<span class="pl-c1">4</span>};
+  <span class="pl-k">@MinSize</span>(<span class="pl-c1">3</span>)
+  <span class="pl-k">List&lt;<span class="pl-smi">Integer</span>&gt;</span> list2 <span class="pl-k">=</span> Arrays.<span class="pl-en">asList</span>( <span class="pl-v">array</span> );;
+  <span class="pl-k">@MinSize</span>(<span class="pl-c1">3</span>)
+  <span class="pl-k">Set&lt;<span class="pl-smi">Integer</span>&gt;</span> set2 <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-k">HashSet&lt;<span class="pl-smi">Integer</span>&gt;</span>(list);;
+  <span class="pl-k">@MinSize</span>(<span class="pl-c1">3</span>)
+  <span class="pl-k">Queue&lt;<span class="pl-smi">Integer</span>&gt;</span> queue2 <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-k">LinkedList&lt;<span class="pl-smi">Integer</span>&gt;</span>(list);
+  <span class="pl-k">@MinSize</span>(<span class="pl-c1">3</span>)
+  <span class="pl-smi">String</span> string2 <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">"</span>1234<span class="pl-pds">"</span></span>;
+
+  <span class="pl-c">// Combined</span>
+  <span class="pl-k">@MaxSize</span>(<span class="pl-c1">16</span>)
+  <span class="pl-k">@NotNull</span>
+  <span class="pl-smi">String</span> password <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">"</span>unknown<span class="pl-pds">"</span></span>;
+}</pre></div>
+
 <h2>
 <a id="evaluation" class="anchor" href="#evaluation" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Evaluation</h2>
 

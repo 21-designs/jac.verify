@@ -22,8 +22,7 @@ package de.drost.annotation;
 import org.junit.Assert;
 import org.junit.Test;
 
-import de.drost.Verificator;
-import de.drost.Verificator.Result;
+import de.drost.annotation.AVerification.Result;
 import de.drost.annotation.prove.Interval;
 
 public class IntervalTest
@@ -35,15 +34,15 @@ public class IntervalTest
 	public void testValidValue() throws InstantiationException, IllegalAccessException
 	{
 		value1 = 0;
-		Result result = Verificator.verify( this );
+		Result result = AVerification.verify( this );
 		Assert.assertTrue(result.passedAll( ));
 		
 		value1 = 10;
-		result = Verificator.verify( this );
+		result = AVerification.verify( this );
 		Assert.assertTrue(result.passedAll( ));
 		
 		value1 = 20;
-		result = Verificator.verify( this );
+		result = AVerification.verify( this );
 		Assert.assertTrue(result.passedAll( ));
 	}
 	
@@ -52,7 +51,7 @@ public class IntervalTest
 	{
 		value1 = 50;
 		
-		Result result = Verificator.verify( this );
+		Result result = AVerification.verify( this );
 		
 		Assert.assertFalse(result.passedAll( ));
 	}

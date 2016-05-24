@@ -17,17 +17,22 @@
  * You should have received a copy of the GNU General Public License along with
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
-package de.drost;
+package de.drost.annotation.verification;
 
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
+import de.drost.annotation.Verificator;
+import de.drost.annotation.prove.NotNull;
 
-@Retention( RetentionPolicy.RUNTIME )
-@Target( ElementType.ANNOTATION_TYPE )
-public @interface AnnotationVerification
+public class NotNullVerificator implements Verificator<Object, NotNull>
 {
-	@SuppressWarnings( "rawtypes" )
-	Class<? extends Verification> verification( ) ;
+
+	@Override
+	public boolean verify( Object value, NotNull annotation )
+	{
+		if(value == null)
+		{
+			return false;
+		}
+		return true;
+	}
+
 }

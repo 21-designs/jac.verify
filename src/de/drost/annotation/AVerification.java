@@ -17,10 +17,12 @@
  * You should have received a copy of the GNU General Public License along with
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
-package de.drost;
+package de.drost.annotation;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
+import java.lang.reflect.Method;
+import java.lang.reflect.Parameter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,7 +39,7 @@ import de.drost.annotation.prove.NotNull;
  * @author kimschorat
  *
  */
-public class Verificator
+public class AVerification
 {
 	/**
 	 * Annotation types used to verify the content of class fields.
@@ -57,6 +59,10 @@ public class Verificator
 	 */
 	public static Result verify( Object o ) throws InstantiationException, IllegalAccessException
 	{
+//		// Check whether the parameter needs to be verified or if it contains fields to be verified.
+//		for(Annotation a : o.getClass( ).getAnnotations( ) )
+//			System.out.println(a.annotationType( ));
+		
 		Class<?> type = o.getClass( );
 
 		Result result = new Result( );
@@ -67,6 +73,31 @@ public class Verificator
 			Result oneResult = verifyField( o, f );
 			result.merge( oneResult );
 		}
+
+		return result;
+	}
+	
+	@Deprecated
+	public static Result verifyMethodParameters( Object o ) throws InstantiationException, IllegalAccessException
+	{
+		Class<?> type = o.getClass( );
+
+		Result result = new Result( );
+
+		// FIXME No chance to get the parameters value!!!
+//		// Iterating all class methods
+//		for( Method m : type.getDeclaredMethods( ) )
+//		{
+//			Parameter[] parameters = m.getParameters( );
+//			
+//			if(parameters.length == 0)
+//				continue;
+//			
+//			parameters[0].get
+//			Annotation[][] annotations = m.getParameterAnnotations();
+////			Result oneResult = verifyField( o, f );
+////			result.merge( oneResult );
+//		}
 
 		return result;
 	}
@@ -99,8 +130,8 @@ public class Verificator
 					if( verification != null )
 					{
 						// Verify the field
-						Class<? extends Verification> verificationClass = verification.verification( );
-						Verification fv = verificationClass.newInstance( );
+						Class<? extends Verificator> verificationClass = verification.verifiedBy( );
+						Verificator fv = verificationClass.newInstance( );
 
 						boolean wasHidden = false;
 
@@ -153,6 +184,15 @@ public class Verificator
 		return verifyField( o, o.getClass( ).getDeclaredField( field ) );
 	}
 
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	/**
 	 * Stores multiple {@link Evaluation} instances within one object.
 	 * 
@@ -185,9 +225,9 @@ public class Verificator
 		 */
 		public boolean passedAll( )
 		{
-			if( evaluations.isEmpty( ) )
-				throw new IllegalStateException(
-						"There are no results to evaluate. Check whether correct annotations has been used." );
+//			if( evaluations.isEmpty( ) )
+//				throw new IllegalStateException(
+//						"There are no results to evaluate. Check whether correct annotations has been used." );
 
 			for( Evaluation e : evaluations )
 			{
@@ -209,7 +249,7 @@ public class Verificator
 
 		/**
 		 * 
-		 * @param owner
+		 * @param member
 		 * @param a
 		 * @param passed
 		 * @param message
@@ -234,7 +274,7 @@ public class Verificator
 		public String toString( )
 		{
 			String print = "";
-			// String print = "All evaluations of the associated object:" + CTRL;
+//			String print = "All member validations of the associated object:" + CTRL;
 
 			for( Evaluation e : evaluations )
 			{
@@ -245,6 +285,13 @@ public class Verificator
 		}
 	}
 
+	
+	
+	
+	
+	
+	
+	
 	/**
 	 * This class represents the evaluation of an verification. Only elements
 	 * with specified annotations are verified, those related to the content of
@@ -255,35 +302,47 @@ public class Verificator
 	 */
 	public static final class Evaluation
 	{
-		final String		owner;
+		final String		member;
 		final String		value;
 		final Annotation	a;
 		final boolean		passed;
 
 		/**
 		 * 
-		 * @param owner
+		 * @param member
 		 * @param annotation
 		 * @param passed
 		 */
-		private Evaluation( String owner, String value, Annotation annotation, boolean passed )
+		private Evaluation( String member, String value, Annotation annotation, boolean passed )
 		{
-			this.owner = owner;
+			this.member = member;
 			this.value = value;
 			this.a = annotation;
 			this.passed = passed;
 		}
 
-		public String getOwner( )
+		/**
+		 * A string holding the associated member name.
+		 * @return the associated member name.
+		 */
+		public String getMember( )
 		{
-			return owner;
+			return member;
 		}
 
+		/**
+		 * The associated annotations used to validate the related member value.
+		 * @return
+		 */
 		public Annotation getAnnotation( )
 		{
 			return a;
 		}
 
+		/**
+		 * Whether the member has passed the evaluation of the related value.
+		 * @return
+		 */
 		public boolean passed( )
 		{
 			return passed;
@@ -292,9 +351,37 @@ public class Verificator
 		@Override
 		public String toString( )
 		{
-			return "'" + owner + "' " + ( ( value != null ) ? "(" + value + ") " : "" )
-					+ ( ( passed ) ? "has been verified" : "has not been verified" ) + " by @"
+			Class<? extends Annotation> type = a.annotationType( );
+			
+			String out =  "'" + member + "' " + ( ( value != null ) ? "(" + value + ") " : "" )
+					+ ( ( passed ) ? "has been verified" : "has NOT been verified" ) + " by @"
 					+ a.annotationType( ).getSimpleName( );
+			
+			String contraints = "";
+			
+			// Checks all available annotations
+			if(type.equals( Interval.class ))
+			{
+				contraints = "(" + ((Interval) a).min( ) +", " + ((Interval) a).max( ) + ")";
+			}
+			else if(type.equals( Max.class ))
+			{
+				contraints = "(" + ((Max) a).value( ) + ")";
+			}
+			else if(type.equals( Min.class ))
+			{
+				contraints = "(" + ((Min) a).value( ) + ")";
+			}
+			else if(type.equals( MaxSize.class ))
+			{
+				contraints = "(" + ((MaxSize) a).value( ) + ")";
+			}
+			else if(type.equals( MinSize.class ))
+			{
+				contraints = "(" + ((MinSize) a).value( ) + ")";
+			}
+			
+			return out + contraints;
 		}
 	}
 }

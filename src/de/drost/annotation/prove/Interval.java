@@ -22,16 +22,16 @@ package de.drost.annotation.prove;
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 
-import de.drost.AnnotationVerification;
-import de.drost.verification.IntervalVerification;
+import de.drost.annotation.AnnotationVerification;
+import de.drost.annotation.verification.IntervalVerificator;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.RetentionPolicy;
 
-@AnnotationVerification( verification = IntervalVerification.class )
+@AnnotationVerification( verifiedBy = IntervalVerificator.class )
 @Retention( RetentionPolicy.RUNTIME )
-// @Target({ElementType.FIELD, ElementType.LOCAL_VARIABLE})
-@Target( ElementType.FIELD )
+@Target({ElementType.FIELD, ElementType.PARAMETER, ElementType.LOCAL_VARIABLE})
+//@Target( ElementType.FIELD )
 public @interface Interval
 {
 	double min( );

@@ -24,12 +24,12 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-import de.drost.AnnotationVerification;
-import de.drost.verification.MinVerification;
+import de.drost.annotation.AnnotationVerification;
+import de.drost.annotation.verification.MinVerificator;
 
-@AnnotationVerification( verification = MinVerification.class )
+@AnnotationVerification( verifiedBy = MinVerificator.class )
 @Retention( RetentionPolicy.RUNTIME )
-// @Target({ElementType.FIELD, ElementType.LOCAL_VARIABLE})
+//@Target({ElementType.FIELD, ElementType.PARAMETER, ElementType.LOCAL_VARIABLE})
 @Target( ElementType.FIELD )
 public @interface Min
 {

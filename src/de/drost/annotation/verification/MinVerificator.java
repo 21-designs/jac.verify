@@ -17,11 +17,51 @@
  * You should have received a copy of the GNU General Public License along with
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
-package de.drost;
+package de.drost.annotation.verification;
 
-import java.lang.annotation.Annotation;
+import de.drost.annotation.Verificator;
+import de.drost.annotation.prove.Min;
 
-public interface Verification<V, A extends Annotation>
+public class MinVerificator implements Verificator<Number, Min>
 {
-	public boolean verify( V value, A annotation);
+
+	@Override
+	public boolean verify( Number value, Min annotation )
+	{
+		if(value == null)
+			return false;
+		
+		if(value.doubleValue( ) < annotation.value( ))
+		{
+			return false;
+		}
+		
+		if(value.floatValue( ) < annotation.value( ))
+		{
+			return false;
+		}
+		
+		if(value.intValue( ) < annotation.value( ))
+		{
+			return false;
+		}
+		
+		if(value.longValue( ) < annotation.value( ))
+		{
+			return false;
+		}
+		
+		if(value.byteValue( ) < annotation.value( ))
+		{
+			return false;
+		}
+		
+		if(value.shortValue( ) < annotation.value( ))
+		{
+			return false;
+		}
+		
+		return true;
+	}
+
 }

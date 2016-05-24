@@ -24,8 +24,8 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-import de.drost.AnnotationVerification;
-import de.drost.verification.MaxSizeVerification;
+import de.drost.annotation.AnnotationVerification;
+import de.drost.annotation.verification.MaxSizeVerificator;
 
 /**
  * Assign this annotation to a class field of type {@code Collection},
@@ -34,7 +34,7 @@ import de.drost.verification.MaxSizeVerification;
  * @author kimschorat
  *
  */
-@AnnotationVerification( verification = MaxSizeVerification.class )
+@AnnotationVerification( verifiedBy = MaxSizeVerificator.class )
 @Retention( RetentionPolicy.RUNTIME )
 @Target( ElementType.FIELD )
 public @interface MaxSize

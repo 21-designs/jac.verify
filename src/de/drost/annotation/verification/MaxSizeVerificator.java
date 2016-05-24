@@ -17,40 +17,40 @@
  * You should have received a copy of the GNU General Public License along with
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
-package de.drost.verification;
+package de.drost.annotation.verification;
 
 import java.lang.reflect.Array;
 import java.util.Collection;
 
-import de.drost.Verification;
-import de.drost.annotation.prove.MinSize;
+import de.drost.annotation.Verificator;
+import de.drost.annotation.prove.MaxSize;
 
-public class MinSizeVerification implements Verification<Object, MinSize>
+public class MaxSizeVerificator implements Verificator<Object, MaxSize>
 {
 
 	@Override
-	public boolean verify( Object value, MinSize annotation )
+	public boolean verify( Object value, MaxSize annotation )
 	{
 		if(value == null)
 			return false;
 		
 		if(value instanceof Collection)
 		{
-			if(( (Collection<?>) value ).size( ) < annotation.value( ))
+			if(( (Collection<?>) value ).size( ) > annotation.value( ))
 			{
 				return false;
 			}
 		}
 		else if(value instanceof Array)
 		{
-			if(Array.getLength( value ) < annotation.value( ))
+			if(Array.getLength( value ) > annotation.value( ))
 			{
 				return false;
 			}
 		}
 		else if(value instanceof String)
 		{
-			if(( (String) value ).length( ) < annotation.value( ))
+			if(( (String) value ).length( ) > annotation.value( ))
 			{
 				return false;
 			}

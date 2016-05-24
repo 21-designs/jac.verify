@@ -17,12 +17,12 @@
  * You should have received a copy of the GNU General Public License along with
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
-package de.drost.verification;
+package de.drost.annotation.verification;
 
-import de.drost.Verification;
+import de.drost.annotation.Verificator;
 import de.drost.annotation.prove.Interval;
 
-public class IntervalVerification implements Verification<Number, Interval>
+public class IntervalVerificator implements Verificator<Number, Interval>
 {
 
 	@Override

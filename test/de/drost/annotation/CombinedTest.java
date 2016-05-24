@@ -22,8 +22,7 @@ package de.drost.annotation;
 import org.junit.Assert;
 import org.junit.Test;
 
-import de.drost.Verificator;
-import de.drost.Verificator.Result;
+import de.drost.annotation.AVerification.Result;
 import de.drost.annotation.prove.Interval;
 import de.drost.annotation.prove.Max;
 import de.drost.annotation.prove.Min;
@@ -44,15 +43,15 @@ public class CombinedTest
 	public void testValidMinMaxInterval() throws InstantiationException, IllegalAccessException, NoSuchFieldException, SecurityException
 	{		
 		validArg = 10;
-		Result result = Verificator.verifyField( this, "validArg" );
+		Result result = AVerification.verifyField( this, "validArg" );
 		Assert.assertTrue(result.passedAll( ));	
 		
 		validArg = 50;
-		result = Verificator.verifyField( this, "validArg" );
+		result = AVerification.verifyField( this, "validArg" );
 		Assert.assertTrue(result.passedAll( ));	
 		
 		validArg = 100;
-		result = Verificator.verifyField( this, "validArg" );
+		result = AVerification.verifyField( this, "validArg" );
 		Assert.assertTrue(result.passedAll( ));	
 	}
 	
@@ -61,15 +60,15 @@ public class CombinedTest
 	public void testInvalidMinMaxInterval() throws InstantiationException, IllegalAccessException, NoSuchFieldException, SecurityException
 	{
 		invalidArg = 10;
-		Result result = Verificator.verifyField( this, "invalidArg" );
+		Result result = AVerification.verifyField( this, "invalidArg" );
 		Assert.assertFalse(result.passedAll( ));
 		
 		invalidArg = 100;
-		result = Verificator.verifyField( this, "invalidArg" );
+		result = AVerification.verifyField( this, "invalidArg" );
 		Assert.assertFalse(result.passedAll( ));
 		
 		invalidArg = 20;
-		result = Verificator.verifyField( this, "invalidArg" );
+		result = AVerification.verifyField( this, "invalidArg" );
 		Assert.assertFalse(result.passedAll( ));		
 	}
 }

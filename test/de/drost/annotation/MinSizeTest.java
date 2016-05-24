@@ -29,8 +29,7 @@ import java.util.Set;
 import org.junit.Assert;
 import org.junit.Test;
 
-import de.drost.Verificator;
-import de.drost.Verificator.Result;
+import de.drost.annotation.AVerification.Result;
 import de.drost.annotation.prove.MinSize;
 
 public class MinSizeTest
@@ -60,13 +59,13 @@ public class MinSizeTest
 		Integer[] integers = new Integer[] {1,2,3};
 		set( integers );
 		
-		Result result = Verificator.verify( this );
+		Result result = AVerification.verify( this );
 		Assert.assertTrue(result.passedAll( ));
 		
 		integers = new Integer[] {1,2,3,4,5,6};
 		set( integers );
 		
-		result = Verificator.verify( this );
+		result = AVerification.verify( this );
 		Assert.assertTrue(result.passedAll( ));
 	}
 	
@@ -76,13 +75,13 @@ public class MinSizeTest
 		Integer[] integers = new Integer[] {};
 		set( integers );
 		
-		Result result = Verificator.verify( this );
+		Result result = AVerification.verify( this );
 		Assert.assertFalse(result.passedAll( ));
 		
 		integers = new Integer[] {1,2};
 		set( integers );
 		
-		result = Verificator.verify( this );
+		result = AVerification.verify( this );
 		Assert.assertFalse(result.passedAll( ));
 	}
 	

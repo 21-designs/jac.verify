@@ -22,8 +22,7 @@ package de.drost.annotation;
 import org.junit.Assert;
 import org.junit.Test;
 
-import de.drost.Verificator;
-import de.drost.Verificator.Result;
+import de.drost.annotation.AVerification.Result;
 import de.drost.annotation.prove.NotNull;
 
 public class NotNullTest
@@ -36,7 +35,7 @@ public class NotNullTest
 	{
 		value = new Object();
 		
-		Result result = Verificator.verify( this );
+		Result result = AVerification.verify( this );
 		
 		Assert.assertTrue(result.passedAll( ));		
 	}
@@ -46,7 +45,7 @@ public class NotNullTest
 	{
 		value = null;
 		
-		Result result = Verificator.verify( this );
+		Result result = AVerification.verify( this );
 		
 		Assert.assertFalse(result.passedAll( ));
 	}

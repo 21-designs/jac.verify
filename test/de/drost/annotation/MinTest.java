@@ -22,8 +22,7 @@ package de.drost.annotation;
 import org.junit.Assert;
 import org.junit.Test;
 
-import de.drost.Verificator;
-import de.drost.Verificator.Result;
+import de.drost.annotation.AVerification.Result;
 import de.drost.annotation.prove.Max;
 
 public class MinTest
@@ -35,11 +34,11 @@ public class MinTest
 	public void testValidValue() throws InstantiationException, IllegalAccessException
 	{
 		value = 10;
-		Result result = Verificator.verify( this );
+		Result result = AVerification.verify( this );
 		Assert.assertTrue(result.passedAll( ));	
 		
 		value = -1000;
-		result = Verificator.verify( this );
+		result = AVerification.verify( this );
 		Assert.assertTrue(result.passedAll( ));	
 	}
 	
@@ -47,7 +46,7 @@ public class MinTest
 	public void testInvalidValue() throws InstantiationException, IllegalAccessException
 	{
 		value = 101;
-		Result result = Verificator.verify( this );
+		Result result = AVerification.verify( this );
 		Assert.assertFalse(result.passedAll( ));	
 	}
 }

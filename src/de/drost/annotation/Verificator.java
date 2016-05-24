@@ -17,51 +17,21 @@
  * You should have received a copy of the GNU General Public License along with
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
-package de.drost.verification;
+package de.drost.annotation;
 
-import de.drost.Verification;
-import de.drost.annotation.prove.Min;
+import java.lang.annotation.Annotation;
 
-public class MinVerification implements Verification<Number, Min>
+/**
+ * Interface for all annotation verification types.
+ * 
+ * @author kimschorat
+ *
+ * @param <V>
+ *            The value type to validate.
+ * @param <A>
+ *            The associated annotation type.
+ */
+public interface Verificator<V, A extends Annotation>
 {
-
-	@Override
-	public boolean verify( Number value, Min annotation )
-	{
-		if(value == null)
-			return false;
-		
-		if(value.doubleValue( ) < annotation.value( ))
-		{
-			return false;
-		}
-		
-		if(value.floatValue( ) < annotation.value( ))
-		{
-			return false;
-		}
-		
-		if(value.intValue( ) < annotation.value( ))
-		{
-			return false;
-		}
-		
-		if(value.longValue( ) < annotation.value( ))
-		{
-			return false;
-		}
-		
-		if(value.byteValue( ) < annotation.value( ))
-		{
-			return false;
-		}
-		
-		if(value.shortValue( ) < annotation.value( ))
-		{
-			return false;
-		}
-		
-		return true;
-	}
-
+	public boolean verify( V value, A annotation );
 }

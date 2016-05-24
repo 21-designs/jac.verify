@@ -29,7 +29,7 @@
       </header>
       <section>
         <h1>
-<a id="content-verification-using-annotations" class="anchor" href="#content-verification-using-annotations" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Content Verification Using Annotations</h1>
+<a id="annotation-verification-lib" class="anchor" href="#annotation-verification-lib" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>annotation-verification-lib</h1>
 
 <p>Provides different annotations that refer to the codes of conduct of the value range of declared class fields.</p>
 
@@ -49,9 +49,9 @@
 </ul>
 
 <h3>
-<a id="example" class="anchor" href="#example" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Example</h3>
+<a id="annotaion-examples" class="anchor" href="#annotaion-examples" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Annotaion Examples</h3>
 
-<div class="highlight highlight-source-java"><pre><span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-en">Example</span>
+<div class="highlight highlight-source-java"><pre><span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-en">ExampleAnnotation</span>
 {
   <span class="pl-c">// Limits the range</span>
   <span class="pl-k">@Interval</span>( <span class="pl-c1">min</span> <span class="pl-k">=</span> <span class="pl-c1">0</span>, <span class="pl-c1">max</span> <span class="pl-k">=</span> <span class="pl-c1">50</span> )
@@ -99,8 +99,46 @@
   <span class="pl-smi">String</span> password <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">"</span>unknown<span class="pl-pds">"</span></span>;
 }</pre></div>
 
-<h2>
-<a id="evaluation" class="anchor" href="#evaluation" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Evaluation</h2>
+<h3>
+<a id="validation" class="anchor" href="#validation" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Validation</h3>
+
+<p>An example class type containing one member restricted by an annotation.</p>
+
+<div class="highlight highlight-source-java"><pre><span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-en">ExampleType</span>
+{
+  <span class="pl-k">@NotNull</span>
+  <span class="pl-smi">String</span> s <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">"</span>foo<span class="pl-pds">"</span></span>;
+}</pre></div>
+
+<p>The following implementation shows how to verify all constraints defined by the specified annotations.</p>
+
+<div class="highlight highlight-source-java"><pre><span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-en">ExampleVerification</span>
+{
+  <span class="pl-smi">ExampleType</span> obj1 <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-smi">ExampleType</span>();
+  <span class="pl-smi">ExampleType</span> obj2 <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-smi">ExampleType</span>();
+
+  <span class="pl-en">ExampleVerification</span>()
+  {
+    <span class="pl-c">// Stores the verifications of all annotations in a Result object</span>
+    <span class="pl-smi">Result</span> result1 <span class="pl-k">=</span> <span class="pl-smi">AVerification</span><span class="pl-k">.</span>verify( obj1 );
+
+    <span class="pl-c">// Merges the results of two different objects.</span>
+    <span class="pl-smi">Result</span> result2 <span class="pl-k">=</span> <span class="pl-smi">AVerification</span><span class="pl-k">.</span>verify( obj2 );
+    result1<span class="pl-k">.</span>merge( result2 ) );
+
+    <span class="pl-k">if</span>( result1<span class="pl-k">.</span>passedAll() )
+    {
+      <span class="pl-c">// Be happy</span>
+    }
+    <span class="pl-k">else</span>
+    {
+      <span class="pl-c">// Review your code</span>
+    }
+  }
+}</pre></div>
+
+<h3>
+<a id="evaluation" class="anchor" href="#evaluation" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Evaluation</h3>
 
 <p>This package also includes test cases to prove reliability of the related annotations. </p>
       </section>

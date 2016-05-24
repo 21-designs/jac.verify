@@ -7,16 +7,16 @@ Adds several annotations to validate different class field content like the mini
 
 Featured *class field* annotations included are listed below:
 
-- @Interval(max, min)
-- @Max(max)
-- @Min(min)
-- @NotNull
-- @MaxSize(maxSize)
-- @MinSize(minSize)
+- `@Interval(max, min)`
+- `@Max(max)`
+- `@Min(min)`
+- `@NotNull`
+- `@MaxSize(maxSize)`
+- `@MinSize(minSize)`
 
-### Example 
+### Annotaion Examples 
 ```java
-public class Example
+public class ExampleAnnotation
 {
   // Limits the range
   @Interval( min = 0, max = 50 )
@@ -62,6 +62,43 @@ public class Example
   @MaxSize(16)
   @NotNull
   String password = "unknown";
+}
+```
+
+### Validation
+An example class type containing one member restricted by an annotation.
+```java
+public class ExampleType
+{
+  @NotNull
+  String s = "foo";
+}
+```
+The following implementation shows how to verify all constraints defined by the specified annotations.
+```java
+public class ExampleVerification
+{
+  ExampleType obj1 = new ExampleType();
+  ExampleType obj2 = new ExampleType();
+
+  ExampleVerification()
+  {
+    // Stores the verifications of all annotations in a Result object
+    Result result1 = AVerification.verify( obj1 );
+    
+    // Merges the results of two different objects.
+    Result result2 = AVerification.verify( obj2 );
+    result1.merge( result2 ) );
+    
+    if( result1.passedAll() )
+    {
+      // Be happy
+    }
+    else
+    {
+      // Review your code
+    }
+  }
 }
 ```
 
